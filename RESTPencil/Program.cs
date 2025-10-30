@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.EntityFrameworkCore;
 using PencilLibrary;
+using RESTPencil;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,22 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<PencilRepository>();
+const bool useDB = true;
+IPencilRepository _repo;
+if (useDB)
+{
+	var optionsBuilder = new DbContextOptionsBuilder<MannazRestAppsDbContext>();
+	optionsBuilder.UseSqlServer(SecretDB.ConnectionStringSimply);
+	MannazRestAppsDbContext _dbContext = new(optionsBuilder.Options);
+	_dbContext.Database.ExecuteSqlRaw("TRUNCATE TABLE dbo.Pencils");
+	_repo = new PencilRepositoryDB(_dbContext);
+}
+else
+{
+	_repo = new PencilRepository();
+}
+
+builder.Services.AddSingleton<IPencilRepository>(_repo);
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("allowAnythingFromZealand",

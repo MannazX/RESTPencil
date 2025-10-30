@@ -8,12 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="PencilLibrary">
-      <HintPath>..\..\..\..\Programmering\Assignments\PencilLibrary\PencilLibrary\bin\Debug\net9.0\PencilLibrary.dll</HintPath>
+      <HintPath>..\..\..\REST_Libraries\PencilLibrary\PencilLibrary\bin\Debug\net9.0\PencilLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

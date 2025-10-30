@@ -7,9 +7,9 @@ namespace RESTPencil.Controllers
 	[ApiController]
 	public class PencilController : Controller
 	{
-		private PencilRepository _repo;
+		private IPencilRepository _repo;
 
-		public PencilController(PencilRepository repo)
+		public PencilController(IPencilRepository repo)
 		{
 			_repo = repo;
 		}
@@ -22,7 +22,7 @@ namespace RESTPencil.Controllers
 			[FromQuery] double? thickness, [FromQuery] double? length, 
 			[FromQuery] double? price, string? sortBy)
 		{
-			List<Pencil> result = _repo.Get(type, brand, thickness, length, price, sortBy);
+			List<Pencil> result = (List<Pencil>)_repo.Get(type, brand, thickness, length, price, sortBy);
 			if (result.Count == 0)
 			{
 				return NoContent();
