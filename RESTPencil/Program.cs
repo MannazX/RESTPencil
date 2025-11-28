@@ -51,6 +51,8 @@ var app = builder.Build();
 app.MapOpenApi();
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors("allowAnything");
+
 //app.UseCors("allowGetPut");
 // Configure the HTTP request pipeline.
 /*if (app.Environment.IsDevelopment())

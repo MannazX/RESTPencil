@@ -22,8 +22,8 @@ namespace RESTPencil.Controllers
 			[FromQuery] double? thickness, [FromQuery] double? length, 
 			[FromQuery] double? price, string? sortBy)
 		{
-			List<Pencil> result = (List<Pencil>)_repo.Get(type, brand, thickness, length, price, sortBy);
-			if (result.Count == 0)
+			IEnumerable<Pencil> result =_repo.Get(type, brand, thickness, length, price, sortBy);
+			if (result.Count() == 0)
 			{
 				return NoContent();
 			}
